@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -41,13 +40,21 @@ jobs:
         run: |
           sudo chmod 755 /etc/nginx/sites-enabled/default
         
+      - name: Удалить существующий файл конфигурации nginx
+        run: |
+          sudo rm -f /etc/nginx/sites-enabled/default
+
       - name: Включить файл конфигурации nginx
         run: |
-          ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+          sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
       - name: Перезапустить nginx
         run: |
           sudo service nginx restart
+
+      - name: Проверить состояние nginx
+        run: |
+          sudo systemctl status nginx
 
       - name: Проверить работоспособность nginx
         run: |
