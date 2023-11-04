@@ -34,7 +34,7 @@ jobs:
 
       - name: Проверка конфига nginx
         run: |
-          nginx -t
+         sudo nginx -T
         
       - name: Включить файл конфигурации nginx
         run: |
