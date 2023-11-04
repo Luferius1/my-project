@@ -1,5 +1,5 @@
 yaml
-name: install nginx
+name: install_nginx
 
 on: [push]
 
@@ -8,12 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: install nginx
+    - name: install_nginx
       run: |
         sudo apt-get update
         sudo apt-get install nginx
 
-    - name: Настройка Nginx
+    - name: nginx
       run: |
         echo "server {
           listen 80;
@@ -25,10 +25,10 @@ jobs:
         }" > nginx.conf
         sudo cp nginx.conf /etc/nginx/sites-available/
 
-    - name: Активация конфигурации Nginx
+    - name: Nginx
       run: |
         sudo ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
 
-    - name: Перезапуск Nginx
+    - name: reload Nginx
       run: |
         sudo service nginx restart
