@@ -27,6 +27,14 @@ jobs:
               index index.html;
             }
           }" > /etc/nginx/sites-available/default
+
+      - name: Удалить существующий файл конфигурации nginx
+        run: |
+          sudo rm -f /etc/nginx/sites-enabled/default
+
+      - name: Проверка конфига nginx
+        run: |
+          nginx -t
         
       - name: Включить файл конфигурации nginx
         run: |
