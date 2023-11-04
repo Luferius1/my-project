@@ -28,10 +28,6 @@ jobs:
             }
           }" > /etc/nginx/sites-available/default
         
-      - name: Удалить существующий файл конфигурации nginx
-        run: |
-          sudo rm -f /etc/nginx/sites-enabled/default
-
       - name: Включить файл конфигурации nginx
         run: |
           sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
