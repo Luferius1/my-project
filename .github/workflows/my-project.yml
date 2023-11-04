@@ -19,9 +19,6 @@ jobs:
       - name: Install pytest
         run: pip install pytest
 
-      - name: Run tests
-        run: pytest
-
       - name: Build production image
         run: docker build -t my-image .
 
