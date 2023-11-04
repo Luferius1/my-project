@@ -24,7 +24,7 @@ jobs:
 
       - name: Добавить контент в файл конфигурации nginx
         run: |
-          sudo echo "server {
+          echo "server {
             listen 80;
             server_name localhost;
             location / {
