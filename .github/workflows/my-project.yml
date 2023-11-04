@@ -21,7 +21,7 @@ jobs:
         run: |
           echo "server {
             listen 80;
-            server_name localhost;
+            server_name luferius_one.com;
             location / {
               root /usr/share/nginx/html;
               index index.html;
