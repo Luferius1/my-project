@@ -13,10 +13,6 @@ jobs:
         run: |
           sudo apt update && sudo apt install nginx
 
-      - name: Создать файл конфигурации nginx
-        run: |
-          sudo touch /etc/nginx/sites-available/default
-
       - name: Изменить права доступа к файлу конфигурации nginx
         run: |
           sudo chmod 777 /etc/nginx/sites-available/default
