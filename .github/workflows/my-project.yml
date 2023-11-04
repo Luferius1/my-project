@@ -31,14 +31,6 @@ jobs:
               index index.html;
             }
           }" > /etc/nginx/sites-available/default
-
-      - name: Изменить права доступа к файлу конфигурации nginx_2
-        run: |
-          sudo chmod 755 /etc/nginx/sites-available/default
-
-      - name: Изменить права доступа к файлу конфигурации nginx_3
-        run: |
-          sudo chmod 755 /etc/nginx/sites-enabled/default
         
       - name: Удалить существующий файл конфигурации nginx
         run: |
