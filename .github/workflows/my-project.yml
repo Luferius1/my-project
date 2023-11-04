@@ -12,8 +12,7 @@ jobs:
     steps:
       - name: Установить nginx
         run: |
-          sudo apt update
-          sudo apt install nginx
+          sudo apt update && sudo apt install nginx
 
       - name: Создать файл конфигурации nginx
         run: |
@@ -26,9 +25,17 @@ jobs:
             }
           }" > /etc/nginx/sites-available/default
 
+      - name: Изменить права доступа к файлу конфигурации nginx
+        run: |
+          sudo chmod 644 /etc/nginx/sites-available/default
+
       - name: Включить файл конфигурации nginx
         run: |
           sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+      - name: Изменить права доступа к включенному файлу конфигурации nginx
+        run: |
+          sudo chmod 644 /etc/nginx/sites-enabled/default
 
       - name: Перезапустить nginx
         run: |
@@ -37,4 +44,3 @@ jobs:
       - name: Проверить работоспособность nginx
         run: |
           curl localhost
-
