@@ -35,7 +35,7 @@ jobs:
 
       - name: Изменить права доступа к файлу конфигурации nginx_2
         run: |
-          sudo chmod 777 /etc/nginx/sites-available/default
+          sudo chmod 644 /etc/nginx/sites-available/default
         
       - name: Включить файл конфигурации nginx
         run: |
