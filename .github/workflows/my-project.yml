@@ -31,14 +31,18 @@ jobs:
       - name: Удалить существующий файл конфигурации nginx
         run: |
           sudo rm -f /etc/nginx/sites-enabled/default
-
-      - name: Проверка конфига nginx
-        run: |
-         sudo nginx -T
         
       - name: Включить файл конфигурации nginx
         run: |
           sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+      - name: Проверка файла конфигурации nginx
+        run: |
+         sudo cat /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+      - name: Проверка конфига nginx
+        run: |
+         sudo nginx -T
 
       - name: Перезапустить nginx
         run: |
