@@ -14,10 +14,6 @@ jobs:
         run: |
           sudo apt update && sudo apt install nginx
 
-      - name: Изменить права доступа к файлу конфигурации nginx
-        run: |
-          sudo chmod 644 /etc/nginx/sites-available/default
-
       - name: Создать файл конфигурации nginx
         run: |
           sudo touch /etc/nginx/sites-available/default
@@ -25,6 +21,44 @@ jobs:
       - name: Изменить права доступа к файлу конфигурации nginx
         run: |
           sudo chmod 644 /etc/nginx/sites-available/default
+
+      - name: Создать файл конфигурации nginx
+        run: |
+          sudo echo "server {
+            listen 80;
+            server_name localhost;
+            location / {
+              root /usr/share/nginx/html;
+              index index.html;
+            }
+          }" > /etc/nginx/sites-available/default
+
+      - name: Изменить права доступа к файлу конфигурации nginx
+        run: |
+          sudo chmod 644 /etc/nginx/sites-available/default
+      
+      - name: Создать файл конфигурации nginx
+        run: |
+          sudo touch /etc/nginx/sites-enabled/default
+
+      - name: Изменить права доступа к файлу конфигурации nginx
+        run: |
+          sudo chmod 644 /etc/nginx/sites-enabled/default
+
+      - name: Создать файл конфигурации nginx
+        run: |
+          sudo echo "server {
+            listen 80;
+            server_name localhost;
+            location / {
+              root /usr/share/nginx/html;
+              index index.html;
+            }
+          }" > /etc/nginx/sites-enabled/default
+
+      - name: Изменить права доступа к файлу конфигурации nginx
+        run: |
+          sudo chmod 644 /etc/nginx/sites-enabled/default
 
       - name: Включить файл конфигурации nginx
         run: |
