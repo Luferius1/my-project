@@ -1,33 +1,40 @@
-name: nginx
+name: Установить nginx
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: install_nginx
-      run: |
-        sudo apt-get update
-        sudo apt-get install nginx
+      - name: Установить nginx
+        run: |
+          sudo apt update
+          sudo apt install nginx
 
-    - name: nginx
-      run: |
-        echo "server {
-          listen 80;
-          server_name example.com;
-          location / {
-            root /var/www/html;
-            index index.html;
-          }
-        }" > nginx.conf
-        sudo cp nginx.conf /etc/nginx/sites-available/
+      - name: Создать файл конфигурации nginx
+        run: |
+          echo "server {
+            listen 80;
+            server_name localhost;
+            location / {
+              root /usr/share/nginx/html;
+              index index.html;
+            }
+          }" > /etc/nginx/sites-available/default
 
-    - name: Nginx
-      run: |
-        sudo ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled/
+      - name: Включить файл конфигурации nginx
+        run: |
+          sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-    - name: reload Nginx
-      run: |
-        sudo service nginx restart
+      - name: Перезапустить nginx
+        run: |
+          sudo service nginx restart
+
+      - name: Проверить работоспособность nginx
+        run: |
+          curl localhost
+
