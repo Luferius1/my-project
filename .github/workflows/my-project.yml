@@ -1,5 +1,4 @@
-yaml
-name: install_nginx
+name: nginx
 
 on: [push]
 
