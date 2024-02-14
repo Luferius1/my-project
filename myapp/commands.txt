@@ -1,3 +1,4 @@
 docker network create myapp
+docker network rm myapp
 docker run --name myapp-python --network myapp -p 5000:5000 -d 53b85da9f18213bef1c24be4496317919386db60c7bd4611a6dfbf149af255fc
 docker run --name postgres-myapp --network myapp \ -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=changeme \ -p 5432:5432 -d b0b90c1d9579032974dc7a3914392004b29e31c071524575b45ee9985f1c43ba
