@@ -10,7 +10,7 @@ def connect_db():
             host="postgres-myapp",
             database="myapp",
             user="postgres",
-            password="changeme"
+            password="postgres"
         )
         return conn
     except psycopg2.Error as e:
