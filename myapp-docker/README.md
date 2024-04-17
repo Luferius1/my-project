@@ -1,4 +1,4 @@
-Install docker-compose Postgres
+Installing docker-compose Postgres
 
 Create database myapp in Postgres
 
