@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Заметки</title>
+  <link rel="stylesheet" type="text/css" href="static/style.css">
+  <script src="static/script.js"></script>
+</head>
+<body class="dark-theme">
+  <header>
+    <h1>Заметки</h1>
+    <button id="theme-toggle" onclick="toggleTheme()">Сменить тему</button>
+  </header>
+  <main>
+    <div id="notes">
+      <ul id="notes-list">
+        <!-- Цикл для добавления заметок -->
+      </ul>
+    </div>
+    <input id="note-title" type="text" placeholder="Заголовок заметки">
+    <textarea id="note-content" placeholder="Содержимое заметки"></textarea>
+    <button id="add-note">Добавить заметку</button>
+    <button id="delete-note">Удалить заметку</button>
+    <button id="delete-all-notes">Удалить все заметки</button>
+  </main>
+</body>
+</html>

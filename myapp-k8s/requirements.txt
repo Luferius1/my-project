@@ -1,0 +1,5 @@
+Flask==2.0.2
+psycopg2
+gunicorn==20.1.0
+SQLAlchemy==2.0.29
+datetime==3.12.3
