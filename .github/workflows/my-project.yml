@@ -1,10 +1,7 @@
-name: Deploy Nginx
+name: Deploy to Server
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
     branches:
       - main
 
@@ -16,28 +13,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install Nginx
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y nginx
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v0.1.1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "./*"
+          target: "/var/www/myapp"
 
-      - name: Start Nginx
-        run: sudo systemctl start nginx
-
-      - name: Set up default website
-        run: |
-          echo "<!DOCTYPE html>
-          <html>
-          <head>
-              <title>Welcome to Nginx!</title>
-          </head>
-          <body>
-              <h1>Success! The Nginx server is working!</h1>
-          </body>
-          </html>" | sudo tee /var/www/html/index.html
-
-      - name: Restart Nginx
-        run: sudo systemctl restart nginx
-
-      - name: Verify Nginx status
-        run: sudo systemctl status nginx
+      - name: Execute remote commands via SSH
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /var/www/myapp
+            docker-compose down
+            docker-compose up -d
