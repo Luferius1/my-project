@@ -20,7 +20,16 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-        
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run tests
+      run: |
+        pytest
+
   build_docker:
     needs: build
     runs-on: ubuntu-latest
@@ -58,5 +67,8 @@ jobs:
         version: 'latest'
 
     - name: Deploy to Kubernetes
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
       run: |
+        echo "$KUBE_CONFIG_DATA" | base64 --decode > $HOME/.kube/config
         kubectl apply -f myapp-k8s/deployment.yaml
