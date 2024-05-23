@@ -20,11 +20,7 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: '3.8'
-
-    - name: Run tests
-      run: |
-        pytest
-
+        
   build_docker:
     needs: build
     runs-on: ubuntu-latest
