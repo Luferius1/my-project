@@ -1,12 +1,5 @@
-FROM python:3.8-slim
+# Используем образ с веб-сервером Nginx
+FROM nginx:alpine
 
-WORKDIR /app
-
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-
-COPY . .
-
-EXPOSE 5000
-
-CMD ["bash"]
+# Копируем файлы сайта в папку /usr/share/nginx/html на контейнере
+COPY . /usr/share/nginx/html
