@@ -12,7 +12,7 @@ RUN python -m venv /venv
 ENV PATH="/venv/bin:$PATH"
 
 # Устанавливаем зависимости
-RUN . /venv/bin/activate && pip install --upgrade pip && pip install flask psycopg2
+RUN . /venv/bin/activate && pip install --upgrade pip && pip install flask datetime sqlalchemy psycopg2
 
 # Экспонируем порт 5000 (если ваше приложение слушает этот порт)
 EXPOSE 5000
