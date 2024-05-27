@@ -1,63 +1,68 @@
 from flask import Flask, render_template, request, jsonify
-from sqlalchemy import create_engine, Column, Integer, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
 
 # Создаем подключение к базе данных
-engine = create_engine('postgresql://myuser:mypassword@postgres-service/mydb')
-Base = declarative_base()
-Session = sessionmaker(bind=engine)
+# Настройка базы данных
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:mypassword@postgres-service/mydb')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
-# Определяем модель для таблицы заметок
-class Note(Base):
+# Модель для заметок
+class Note(db.Model):
     __tablename__ = 'notes'
+    note_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), unique=True, nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    note_id = Column(Integer, primary_key=True)
-    title = Column(String)
-    content = Column(String)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    def __repr__(self):
+        return f'<Note {self.title}>'
 
-# Создаем таблицу, если она еще не существует
-Base.metadata.create_all(engine)
+# Создание таблицы, если она не существует
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/notes', methods=['GET', 'POST', 'DELETE'])
-def notes():
-    if request.method == 'GET':
-        session = Session()
-        notes = session.query(Note).all()
-        session.close()
-        return jsonify([{'note_id': note.note_id, 'title': note.title, 'content': note.content, 'created_at': note.created_at} for note in notes])
-    elif request.method == 'POST':
-        data = request.json
-        title = data.get('title', '')
-        content = data.get('content', '')
-        if title and content:
-            session = Session()
-            new_note = Note(title=title, content=content)
-            session.add(new_note)
-            session.commit()
-            session.close()
-            return jsonify({'message': 'Note created successfully.'}), 201
-        else:
-            return jsonify({'error': 'Title and content are required.'}), 400
-    elif request.method == 'DELETE':
-        data = request.json
-        note_ids = data.get('ids', [])
-        session = Session()
-        for note_id in note_ids:
-            note = session.query(Note).filter_by(note_id=note_id).first()
-            if note:
-                session.delete(note)
-        session.commit()
-        session.close()
-        return jsonify({'message': 'Notes deleted successfully.'})
+@app.route('/notes', methods=['GET'])
+def get_notes():
+    notes = Note.query.all()
+    notes_list = [{'title': note.title} for note in notes]
+    return jsonify(notes_list)
+
+@app.route('/notes/<note_title>', methods=['GET'])
+def get_note_content(note_title):
+    note = Note.query.filter_by(title=note_title).first()
+    if note:
+        return jsonify({"content": note.content})
+    return jsonify({"error": "Note not found"}), 404
+
+@app.route('/notes', methods=['POST'])
+def save_note():
+    note_title = request.json.get('title')
+    note_content = request.json.get('content')
+    note = Note.query.filter_by(title=note_title).first()
+    if note:
+        note.content = note_content
+    else:
+        note = Note(title=note_title, content=note_content)
+        db.session.add(note)
+    db.session.commit()
+    return jsonify({"success": True})
+
+@app.route('/notes/<note_title>', methods=['DELETE'])
+def delete_note(note_title):
+    note = Note.query.filter_by(title=note_title).first()
+    if note:
+        db.session.delete(note)
+        db.session.commit()
+        return jsonify({"success": True})
+    return jsonify({"error": "Note not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
