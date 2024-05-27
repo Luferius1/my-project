@@ -17,4 +17,4 @@ jobs:
       run: docker build -t nginx-my-project .
 
     - name: Run Docker container
-      run: docker run -d -p 8080:80 my-website
+      run: docker run -d -p 8081:80 nginx-my-project
