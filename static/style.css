@@ -1,66 +1,41 @@
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background-color 0.3s ease;
+    background-color: #f8f9fa;
 }
 
-.dark-theme {
-  background-color: #1a1a1a;
-  color: white;
+h1 {
+    color: #343a40;
 }
 
-.light-theme {
-  background-color: #ffffff;
-  color: #000000;
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Добавлено для вертикального выравнивания */
-  background-color: #333;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-#theme-toggle {
-  padding: 5px; /* Уменьшенный размер */
-  cursor: pointer;
-}
-
-main {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #333;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#notes ul {
-  list-style: none;
-  padding: 0;
+#notes {
+    list-style-type: none;
+    padding: 0;
 }
 
 #notes li {
-  margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#notes li:hover {
+    background-color: #f1f1f1;
+}
+
+#note-name, #note-content {
+    font-size: 1.1em;
 }
 
 button {
-  padding: 10px;
-  margin: 5px;
-  cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-input[type="text"] {
-  padding: 10px;
-  margin: 5px;
-  background-color: #555;
-  color: white;
-  border: none;
-}
-
-input[type="checkbox"] {
-  margin-right: 5px;
+button:hover {
+    opacity: 0.9;
 }
