@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Создаем подключение к базе данных
 # Настройка базы данных
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:mypassword@postgres-service/mydb')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:mypassword@postgres/mydb')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
