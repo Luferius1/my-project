@@ -7,20 +7,11 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted  # Указываем, что используем self-hosted runner
+    runs-on: self-hosted
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
-    - name: Install dependencies
-      run: |
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
     - name: Build Docker image
       run: docker build -t my-python-app .
