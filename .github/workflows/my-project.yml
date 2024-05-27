@@ -14,4 +14,4 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Build Docker image
-      run: docker build -t my-python-app .
+      run: docker build -t nginx-my-project .
