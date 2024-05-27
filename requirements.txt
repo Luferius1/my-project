@@ -1,4 +1,4 @@
-Flask==2.0.2
+flask
+datetime
+sqlalchemy
 gunicorn==20.1.0
-SQLAlchemy==2.0.29
-datetime==3.12.3
