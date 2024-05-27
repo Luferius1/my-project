@@ -1,27 +1,43 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Заметки</title>
-  <link rel="stylesheet" type="text/css" href="static/style.css">
-  <script src="static/script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body class="dark-theme">
-  <header>
-    <h1>Заметки</h1>
-    <button id="theme-toggle" onclick="toggleTheme()">Сменить тему</button>
-  </header>
-  <main>
-    <div id="notes">
-      <ul id="notes-list">
-        <!-- Цикл для добавления заметок -->
-      </ul>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Notepad App</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2 class="card-title">Notes</h2>
+                        <ul id="notes" class="list-group">
+                        </ul>
+                        <button class="btn btn-primary mt-3 w-100" onclick="newNote()">New Note</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <input type="text" id="note-name" class="form-control" placeholder="Note name">
+                        </div>
+                        <div class="mb-3">
+                            <textarea id="note-content" class="form-control" rows="10" placeholder="Note content"></textarea>
+                        </div>
+                        <button class="btn btn-success me-2" onclick="saveNote()">Save</button>
+                        <button class="btn btn-danger" onclick="deleteNote()">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <input id="note-title" type="text" placeholder="Заголовок заметки">
-    <textarea id="note-content" placeholder="Содержимое заметки"></textarea>
-    <button id="add-note">Добавить заметку</button>
-    <button id="delete-note">Удалить заметку</button>
-    <button id="delete-all-notes">Удалить все заметки</button>
-  </main>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
 </body>
 </html>
