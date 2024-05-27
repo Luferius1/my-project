@@ -1,9 +1,6 @@
-name: Deploy to Server
+name: Run Nginx in Docker
 
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 jobs:
   run-nginx:
@@ -13,7 +10,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Run Nginx
+    - name: Build Nginx Docker image
+      run: docker build -t my-nginx .
+
+    - name: Run Nginx container
+      run: docker run -d -p 80:80 my-nginx
+      
+    - name: Check Nginx
       run: |
-        docker run -d -p 80:80 nginx
         docker ps
+        curl http://localhost
+
