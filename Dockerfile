@@ -9,8 +9,6 @@ COPY requirements.txt requirements.txt
 COPY . .
 
 # Устанавливаем зависимости
-RUN python -m venv /venv
-ENV PATH="/venv/bin:$PATH"
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Экспонируем порт 5000 (если ваше приложение слушает этот порт)
