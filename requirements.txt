@@ -1,4 +1,3 @@
-flask
-datetime
-sqlalchemy
-gunicorn==20.1.0
+Flask
+Flask-SQLAlchemy
+psycopg2
