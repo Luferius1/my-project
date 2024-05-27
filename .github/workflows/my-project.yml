@@ -1,23 +1,27 @@
-name: Run Nginx in Docker
+name: Build Docker Image
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  run-nginx:
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Build Nginx Docker image
-      run: docker build - < Dockerfile
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
-    - name: Run Nginx container
-      run: docker run -d -p 80:80 my-nginx
-      
-    - name: Check Nginx
+    - name: Install dependencies
       run: |
-        docker ps
-        curl http://localhost
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
+    - name: Build Docker image
+      run: docker build -t my-python-app .
