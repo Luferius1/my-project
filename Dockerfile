@@ -1,18 +1,26 @@
-# Используем базовый образ Python
-FROM python:3.9
-
-# Создаем директорию приложения
-WORKDIR /app
-
-# Копируем файлы requirements.txt и исходный код приложения в контейнер
-COPY requirements.txt requirements.txt
-COPY . .
+# Используем официальный образ Python
+FROM python:3.9-slim
 
 # Устанавливаем зависимости
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev
 
-# Экспонируем порт 5000 (если ваше приложение слушает этот порт)
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Копируем файлы приложения в контейнер
+COPY . .
+
+# Устанавливаем зависимости Python
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Устанавливаем переменные окружения для Flask
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Открываем порт
 EXPOSE 5000
 
-# Запускаем приложение с Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
+# Команда для запуска Flask
+CMD ["flask", "run"]
