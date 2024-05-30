@@ -13,8 +13,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-   # - name: Log in to GitLab Container Registry
-    #  run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
+    - name: Log in to GitLab Container Registry
+      env:
+        CI_REGISTRY: ${{ secrets.CI_REGISTRY }}
+        CI_REGISTRY_USER: ${{ secrets.CI_REGISTRY_USER }}
+        CI_REGISTRY_PASSWORD: ${{ secrets.CI_REGISTRY_PASSWORD }}
+      run: echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
     - name: Build Docker image
       run: docker build -t registry.gitlab.com/luferius1/moneylong .
