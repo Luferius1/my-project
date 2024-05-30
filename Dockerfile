@@ -1,5 +1,5 @@
 # Используем образ с веб-сервером Nginx
-FROM nginx:latest
+FROM nginx:alpine
 
 # Удаляем стандартный конфигурационный файл Nginx
 RUN rm /etc/nginx/conf.d/default.conf
