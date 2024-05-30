@@ -1,5 +1,5 @@
 # Используем образ с веб-сервером Nginx
-FROM nginx:alpine
+FROM registry.gitlab.com/luferius1/moneylong/v1/nginx:v1
 
 # Удаляем стандартный конфигурационный файл Nginx
 RUN rm /etc/nginx/conf.d/default.conf
