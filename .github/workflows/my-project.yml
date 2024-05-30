@@ -17,7 +17,7 @@ jobs:
       run: echo "${{ secrets.CI_REGISTRY_PASSWORD }}" | docker login ${{ secrets.CI_REGISTRY }} -u ${{ secrets.CI_REGISTRY_USER }} --password-stdin
 
     - name: Build Docker image
-      run: docker build -t nginx-my-project .
+      run: docker build -t registry.gitlab.com/luferius1/moneylong .
 
     - name: Run Docker container
-      run: docker run -d -p 8081:80 nginx-my-project
+      run: docker run -d -p 8081:80 registry.gitlab.com/luferius1/moneylong
