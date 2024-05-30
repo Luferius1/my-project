@@ -21,7 +21,7 @@ jobs:
       run: echo $CI_REGISTRY_PASSWORD | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
 
     - name: Build Docker image
-      run: docker build -t my-nginx-image .
+      run: docker build -t registry.gitlab.com/luferius1/moneylong .
 
     - name: Run Docker container
-      run: docker run -d -p 8081:80  my-nginx-image
+      run: docker run -d -p 8081:80 registry.gitlab.com/luferius1/moneylong
