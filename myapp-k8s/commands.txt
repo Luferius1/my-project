@@ -1,4 +1,0 @@
-kubectl apply -f Deployment.yml
-kubectl apply -f Postgres.yml
-kubectl apply -f ServiceDeployment.yml
-kubectl apply -f ServicesPostgres.yml
