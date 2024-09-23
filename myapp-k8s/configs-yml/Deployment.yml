@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: python
-        image: myapp
+        image: luferius/my-python-app:1.0
         ports:
         - containerPort: 5000
         env:
